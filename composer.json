@@ -1,0 +1,28 @@
+{
+    "name": "goodarzi/inventory",
+    "description": "Inventory manager to manage inventory transactions and stock tracking",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Goodarzi",
+            "email": "itsgoodarzi@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "maatwebsite/excel": "^3.1",
+        "yajra/laravel-datatables-oracle": "^9.15.2"
+    },
+    "autoload": {
+        "psr-4": {
+          "Goodarzi\\Inventory\\": "src"
+        }
+    },
+    "extra": {
+      "laravel": {
+          "providers": [
+              "Goodarzi\\Inventory\\InventoryServiceProvider"
+          ]
+      }
+  }
+}
