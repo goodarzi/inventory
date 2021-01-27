@@ -53,5 +53,8 @@ Route::group(['middleware' => ['web', 'auth']], function(){
     Route::resource('products', Goodarzi\Inventory\Http\Controllers\ProductController::class);
     Route::resource('inventory_transactions', Goodarzi\Inventory\Http\Controllers\InventoryTransactionController::class);
     Route::resource('inventory_codes', Goodarzi\Inventory\Http\Controllers\InventoryCodeController::class);
+    Route::resource('sources', Goodarzi\Inventory\Http\Controllers\SourceController::class);
+    Route::resource('stocks', Goodarzi\Inventory\Http\Controllers\StockController::class);
+
 
 });

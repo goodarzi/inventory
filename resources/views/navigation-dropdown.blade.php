@@ -22,6 +22,12 @@
                     <x-jet-nav-link href="{{ route('inventory_codes.index') }}" :active="request()->routeIs('inventory_codes.index')">
                     کد انبار
                     </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('stocks.index') }}" :active="request()->routeIs('stocks.index')">
+                    انبارها
+                    </x-jet-nav-link>
+                    <x-jet-nav-link href="{{ route('sources.index') }}" :active="request()->routeIs('sources.index')">
+                    سورس ها
+                    </x-jet-nav-link>
                 </div>
             </div>
 
