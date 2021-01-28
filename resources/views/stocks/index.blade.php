@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <div class="card bg-light mt-3">
             <div class="card-body">
-                <a class="btn btn-success" href="{{ route('stocks.create') }}">سورس جدید</a>
+                <a class="btn btn-success" href="{{ route('stocks.create') }}">انبار جدید</a>
             </div>
         </div>
     @include('inventoryview::flash-messages')
