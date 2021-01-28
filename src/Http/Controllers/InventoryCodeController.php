@@ -31,10 +31,12 @@ class InventoryCodeController extends Controller
 
     // Store Form data in database
     public function store(Request $request) {
+        
 
         // Form validation
         $this->validate($request, [
-            'code' => 'required|unique:inventory_codes|regex:/^[a-zA-Z0-9]*$/|size:6',
+            'code' => 'required|regex:/^[a-zA-Z0-9]*$/|size:6|unique:inventory_codes,code,NULL,id,stock_id,' . $request->stock_id,
+
             'stock_id' => 'required',
          ]);
         $request_additional = [
