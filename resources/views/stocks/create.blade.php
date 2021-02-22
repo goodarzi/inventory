@@ -12,7 +12,13 @@
             @csrf
             <div class="form-group">
                 <label>کد سورس</label>
-                <input type="text" class="form-control @error('source') is-invalid @enderror" name="source_id" id="source_id">
+                <select class="form-control" name="source_id">
+                    @foreach ($sources as $key => $value)
+                        <option value="{{ $key }}" {{ ( $key == old('source_id') ) ? 'selected' : '' }}> 
+                            {{ $value }} 
+                    </option>
+                    @endforeach    
+                </select>
             </div>
 
             <div class="form-group">

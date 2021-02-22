@@ -12,10 +12,11 @@ class InventoryCodeDedicated implements Rule
      *
      * @return void
      */
-    public function __construct($sku)
+    public function __construct($sku, $stockId)
     {
         //
         $this->sku = $sku;
+        $this->stockId = $stockId;
     }
 
     /**
@@ -29,7 +30,7 @@ class InventoryCodeDedicated implements Rule
     {
 
         
-        $InventoryCode = InventoryCode::where('code', $value)->first();
+        $InventoryCode = InventoryCode::where('code', $value)->where('stock_id', $this->stockId)->first();
 
 
         /* echo "<pre>";

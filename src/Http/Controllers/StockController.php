@@ -3,6 +3,7 @@
 namespace Goodarzi\Inventory\Http\Controllers;
 
 use Goodarzi\Inventory\Models\Stock;
+use Goodarzi\Inventory\Models\Source;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -25,7 +26,9 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('inventoryview::stocks.create');
+        $sources = Source::pluck('name', 'id');
+        $selectedID = 1;
+        return view('inventoryview::stocks.create', compact('selectedID', 'sources'));
     }
 
     /**

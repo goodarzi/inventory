@@ -13,9 +13,10 @@ class InventoryCodeQty implements Rule
      *
      * @return void
      */
-    public function __construct($inventory_code)
+    public function __construct($inventory_code, $stockId)
     {
         $this->inventory_code = $inventory_code;
+        $this->stockId = $stockId;
     }
 
     /**
@@ -29,7 +30,7 @@ class InventoryCodeQty implements Rule
     {
         
         //
-        $InventoryCode = InventoryCode::where('code', $this->inventory_code)->first();
+        $InventoryCode = InventoryCode::where('code', $this->inventory_code)->where('stock_id', $this->stockId)->first();
         if ( $InventoryCode->qty < $value) { 
 
             $this->inventory_code_qty = $InventoryCode->qty;

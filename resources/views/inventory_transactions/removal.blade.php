@@ -24,6 +24,17 @@
             </div>
 
             <div class="form-group">
+                <label>انبار</label>
+                <select class="form-control" name="stock_id">
+                    @foreach ($stocks as $key => $value)
+                        <option value="{{ $key }}" {{ old('stock_id') == $key ? 'selected' : '' }}> 
+                            {{ $value }}
+                    </option>
+                    @endforeach    
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label>کد انبار</label>
                 <input type="text" class="form-control @error('inventory_code') is-invalid @enderror" name="inventory_code" id="inventory_code" value="{{old('inventory_code')}}">
             </div>

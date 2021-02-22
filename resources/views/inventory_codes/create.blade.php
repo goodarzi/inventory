@@ -20,8 +20,14 @@
 
             <div class="form-group">
                 <label>Stock Id</label>
-                <input type="text" class="form-control @error('stock_id') is-invalid @enderror" name="stock_id"
-                    id="stock_id">
+                <select class="form-control" name="stock_id">
+                    @foreach ($stocks as $key => $value)
+                    <option value="{{ $key }}" {{ old('stock_id') == $key ? 'selected' : '' }}> 
+                            {{ $value }} 
+                    </option>
+                    @endforeach    
+                </select>
+
             </div>
 
             <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">

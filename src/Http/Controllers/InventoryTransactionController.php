@@ -5,6 +5,7 @@ namespace Goodarzi\Inventory\Http\Controllers;
 use Illuminate\Http\Request;
 use Goodarzi\Inventory\Models\InventoryTransaction;
 use Goodarzi\Inventory\Models\Product;
+use Goodarzi\Inventory\Models\Stock;
 use Goodarzi\Inventory\Models\InventoryCode;
 use Goodarzi\Inventory\Rules\InventoryCodeDedicated;
 use Goodarzi\Inventory\Rules\InventoryCodeQty;
@@ -23,18 +24,24 @@ class InventoryTransactionController extends Controller
     // Create Inventory Transaction Form
     public function create()
     {
-        return view('inventoryview::inventory_transactions.create');
+        $stocks = Stock::pluck('name', 'id');
+        $selectedID = 1;
+        return view('inventoryview::inventory_transactions.create', compact('selectedID', 'stocks'));
     }
         
     // Create Inventory Transaction Form
     public function createInventoryTransactionAddition(Request $request)
     {
-        return view('inventoryview::inventory_transactions.addition');
+        $stocks = Stock::pluck('name', 'id');
+        $selectedID = 1;
+        return view('inventoryview::inventory_transactions.addition', compact('selectedID', 'stocks'));
     }
     // Create Inventory Transaction Form
     public function createInventoryTransactionRemoval(Request $request)
     {
-        return view('inventoryview::inventory_transactions.removal');
+        $stocks = Stock::pluck('name', 'id');
+        $selectedID = 1;
+        return view('inventoryview::inventory_transactions.removal', compact('selectedID', 'stocks'));
     }
 
     // Store Inventory Transaction Form data
@@ -42,6 +49,7 @@ class InventoryTransactionController extends Controller
     {
         $sku = $request->input('sku');
         $inventory_code = $request->input('inventory_code');
+        $stockId = $request->input('stock_id');
 
         // Form validation
         $this->validate($request, [
@@ -49,10 +57,11 @@ class InventoryTransactionController extends Controller
             'type' => 'required',
             'qty' => 'required',
             'description' => 'required',
+            'stock_id' => 'required',
             'inventory_code' => 'required|exists:inventory_codes,code',
          ]);
         $this->validate($request, [
-            'inventory_code' => (new InventoryCodeDedicated($sku))
+            'inventory_code' => (new InventoryCodeDedicated($sku, $stockId))
         ]);
 
 
@@ -60,14 +69,14 @@ class InventoryTransactionController extends Controller
             $qty = $request->input('qty');
         } elseif ($request->input('type') == 'removal') {
             $this->validate($request, [
-                'qty' => (new InventoryCodeQty($inventory_code))
+                'qty' => (new InventoryCodeQty($inventory_code, $stockId))
             ]);
             $qty = -$request->input('qty');
         }
 
 
         $Product = Product::where('sku', $sku)->first();
-        $InventoryCode = InventoryCode::where('code', $inventory_code)->first();
+        $InventoryCode = InventoryCode::where('code', $inventory_code)->where('stock_id', $stockId)->first();
 
         $ProductQty = $Product->qty + $qty;
         $InventoryCodeQty = $InventoryCode->qty + $qty;
@@ -86,7 +95,7 @@ class InventoryTransactionController extends Controller
         //  Store data in database
         $request_additional = [
             'user_id' => $request->user()->id,
-            'stock_id' => 1,
+            'stock_id' => $stockId,
             'product_qty' => $ProductQty,
             'inventory_code_qty' => $InventoryCodeQty,
         ];

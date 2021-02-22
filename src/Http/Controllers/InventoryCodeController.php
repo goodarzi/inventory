@@ -4,6 +4,7 @@ namespace Goodarzi\Inventory\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Goodarzi\Inventory\Models\InventoryCode;
+use Goodarzi\Inventory\Models\Stock;
 
 use Goodarzi\Inventory\Exports\InventoryCodesExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -25,8 +26,12 @@ class InventoryCodeController extends Controller
     }
 
             // Create Form
-    public function create() {
-    return view('inventoryview::inventory_codes.create');
+    public function create() 
+    {
+
+        $stocks = Stock::pluck('name', 'id');
+        $selectedID = 1;
+        return view('inventoryview::inventory_codes.create', compact('selectedID', 'stocks'));
     }
 
     // Store Form data in database
