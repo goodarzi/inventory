@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label>SKU</label>
-                <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku">
+                <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku" value= "{{ $generatedSku }}">
             </div>
 
             <div class="form-group">

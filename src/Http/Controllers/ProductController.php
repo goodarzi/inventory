@@ -30,7 +30,8 @@ class ProductController extends Controller
 
         // Create Form
     public function create() {
-    return view('inventoryview::products.create');
+        $generatedSku = $this->generateSku();
+        return view('inventoryview::products.create', compact('generatedSku'));
     }
 
     // Store Form data in database
@@ -129,4 +130,25 @@ class ProductController extends Controller
                 ->make(true);
         }
     }
+
+    function generateSku() {
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+        // Output: 54esmdr0qf
+        $sku = substr(str_shuffle($permitted_chars), 0, 4);
+    
+        // call the same function if the barcode exists already
+        if ($this->skuExists($sku)) {
+            return $this->generateSku();
+        }
+    
+        // otherwise, it's valid and can be used
+        return $sku;
+    }
+    
+    function skuExists($sku) {
+        // query the database and return a boolean
+        // for instance, it might look like this in Laravel
+        return Product::whereSku($sku)->exists();
+    }
+
 }
