@@ -49,13 +49,13 @@
                         <td>{{ $Format->persian_date($data->updated_at) }}</td>
                         <td>{{ $Format->persian_date($data->created_at) }}</td>
                         <td>
-                        <form action="{{ route('products.destroy', $data->id) }}" method="POST">
+                        <form action="{{ route('products.destroy', $data->sku) }}" method="POST">
 
                             <a href="{{ route('products.show', $data->sku) }}" title="show">
                                 <i class="fas fa-eye text-success  fa-lg"></i>
                             </a>
 
-                            <a href="{{ route('products.edit', $data->id) }}">
+                            <a href="{{ route('products.edit', $data->sku) }}">
                                 <i class="fas fa-edit  fa-lg"></i>
 
                             </a>

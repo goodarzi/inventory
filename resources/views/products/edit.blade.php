@@ -13,8 +13,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>ID #:</strong>
-                        <label>{{ $product->id }}</label>
+                        <strong>SKU:</strong>
+                        <label>{{ $product->sku }}</label>
                     </div>
                 </div>
 

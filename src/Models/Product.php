@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $table = 'products';
+    protected $primaryKey = 'sku';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'sku',
         'name',
