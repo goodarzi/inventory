@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <label>Code</label>
-                <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" id="code">
+                <input type="text" class="typeahead form-control @error('code') is-invalid @enderror" name="code" id="code">
             </div>
 
             <div class="form-group">
@@ -33,4 +33,15 @@
             <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+    <script type="text/javascript">
+        var path = "{{ url('inventory_code_autocomplete') }}";
+            $('input.typeahead').typeahead({
+                source:  function (query, process) {
+                return $.get(path, { query: query }, function (data) {
+                    return process(data);
+                });
+                }
+            });
+    </script>
 </x-inventoryview-admin-layout>

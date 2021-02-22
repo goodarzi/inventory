@@ -15,7 +15,7 @@
 
             <div class="form-group">
                 <label>SKU</label>
-                <input type="text" class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku" value="{{old('sku')}}">
+                <select class="form-control @error('sku') is-invalid @enderror" name="sku" id="sku" value="{{old('sku')}}">
             </div>
 
             <div class="form-group">
@@ -36,7 +36,7 @@
 
             <div class="form-group">
                 <label>کد انبار</label>
-                <input type="text" class="form-control @error('inventory_code') is-invalid @enderror" name="inventory_code" id="inventory_code" value="{{old('inventory_code')}}">
+                <input type="text" class="inventory-typeahead form-control @error('inventory_code') is-invalid @enderror" name="inventory_code" id="inventory_code" value="{{old('inventory_code')}}">
             </div>
 
             <div class="form-group">
@@ -47,4 +47,27 @@
             <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
         </form>
     </div>
+    <script type="text/javascript">
+        $('#sku').select2({
+            dir: 'rtl',
+            placeholder: 'Select Product',
+            multiple: true,
+            ajax: {
+                url: '/inventory_transaction/product_search',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                id: item.sku,
+                                text: item.name+' - '+item.sku+' - ('+item.qty+')'
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+    </script>
 </x-inventoryview-admin-layout>

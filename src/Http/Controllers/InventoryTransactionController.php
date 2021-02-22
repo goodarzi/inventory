@@ -133,4 +133,30 @@ class InventoryTransactionController extends Controller
             ->with('warning', 'چیزی تغییر نکرد!');
         }
     }
+
+    public function productQuery(Request $request)
+    {
+    	$products = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $products = Product::select("sku", "name", "qty")
+            		->where('sku', 'LIKE', "%$search%")
+            		->get();
+        }
+        return response()->json($products);
+    }
+
+    public function inventoryCodeQuery(Request $request)
+    {
+    	$inventory_codes = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $inventory_codes = InventoryCode::select("code")
+            		->where('code', 'LIKE', "%$search%")
+            		->get();
+        }
+        return response()->json($inventory_codes);
+    }
 }

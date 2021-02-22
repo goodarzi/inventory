@@ -106,4 +106,15 @@ class InventoryCodeController extends Controller
 
     }
 
+    public function query(Request $request)
+    {
+      $input = $request->all();
+
+        $data = InventoryCode::select("code")
+                  ->where("code","LIKE","%{$input['query']}%")
+                  ->get();
+   
+        return response()->json($data);
+    }
+
 }

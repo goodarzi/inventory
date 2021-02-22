@@ -111,6 +111,17 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
+    public function query(Request $request)
+    {
+      $input = $request->all();
+
+        $data = Product::select("name")
+                  ->where("name","LIKE","%{$input['query']}%")
+                  ->get();
+   
+        return response()->json($data);
+    }
+
     public function productIndex()
     {
         return view('welcome');

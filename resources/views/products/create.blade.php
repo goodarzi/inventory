@@ -18,10 +18,21 @@
 
             <div class="form-group">
                 <label>نام محصول</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
+                <input style="direction : rtl;" type="text" class="typeahead form-control @error('name') is-invalid @enderror" name="name" id="name" autocomplete="off">
             </div>
 
             <input type="submit" name="send" value="Submit" class="btn btn-dark btn-block">
         </form>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" ></script>
+    <script type="text/javascript">
+        var path = "{{ url('product_autocomplete') }}";
+            $('input.typeahead').typeahead({
+                source:  function (query, process) {
+                return $.get(path, { query: query }, function (data) {
+                    return process(data);
+                });
+                }
+            });
+    </script>
 </x-inventoryview-admin-layout>
