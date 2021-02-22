@@ -40,7 +40,7 @@ class ProductController extends Controller
         // Form validation
         $this->validate($request, [
             'sku' => 'required|unique:products|regex:/^[a-zA-Z0-9]*$/|size:4',
-            'name' => 'required',
+            'name' => 'required|unique:products',
          ]);
 
         $request_additional = [
@@ -65,7 +65,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product) {
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:products',
         ]);
 
         //$inventoryTransaction->fill($request->input())->save();
